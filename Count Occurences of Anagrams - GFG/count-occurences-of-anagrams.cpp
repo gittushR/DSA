@@ -10,25 +10,21 @@ class Solution{
 public:
 	int search(string pat, string txt) {
 	    // code here
-	    int ans=0;
-	    unordered_map<char,int> mp;
+	    int ans=0,i=0,j=0;
+	    unordered_map<char, int> mp;
 	    for(int i=0;i<pat.size();i++){
 	        mp[pat[i]]++;
 	    }
 	    int count=mp.size();
-	    int i=0,j=0;
 	    while(j<txt.size()){
-	        //calculation
 	        if(mp.find(txt[j])!=mp.end()){
 	            mp[txt[j]]--;
-	            if(mp[txt[j]]==0){
-	                count--;
-	            }
+	            if(mp[txt[j]]==0)count--;
 	        }
-	        if((j-i+1)<pat.size()){
+	        if(j-i+1<pat.size()){
 	            j++;
 	        }
-	        else if((j-i+1)==pat.size()){
+	        else if(j-i+1==pat.size()){
 	            if(count==0)ans++;
 	            
 	            if(mp.find(txt[i])!=mp.end()){
@@ -40,7 +36,7 @@ public:
 	    }
 	    return ans;
 	}
-
+	    
 };
 
 //{ Driver Code Starts.
