@@ -16,8 +16,7 @@ public:
             ans = min(ans, arr[i]);
         }
         for(int i = 0; i < n; i++){
-            if(arr[i] % ans == 0)
-                continue;
+            if(arr[i] % ans == 0)continue;
             ans = min(ans, arr[i] % ans);
         }
         return ans;
