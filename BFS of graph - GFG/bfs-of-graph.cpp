@@ -3,39 +3,29 @@
 using namespace std;
 
 // } Driver Code Ends
-
-
 class Solution {
   public:
-  void bfs(int node,vector<int> &vis, vector<int>adj[],vector<int> &ans){
-       queue<int> q;
-       q.push(node);
-        vis[node]=1;
+    // Function to return Breadth First Traversal of given graph.
+    vector<int> bfsOfGraph(int V, vector<int> adj[]) {
+        vector<int> bfs;
+        vector<int> vis(V,0);
+        queue<int> q;
+        q.push(0);
+        vis[0]=1;
         while(!q.empty()){
-            int node = q.front();
+            int node=q.front();
             q.pop();
-            ans.push_back(node);
-            for(auto it:adj[node]){
-                if(vis[it]==0){
+            bfs.push_back(node);
+            for(auto it: adj[node]){
+                if(!vis[it]){
                     q.push(it);
                     vis[it]=1;
                 }
             }
         }
-      
-  }
-    // Function to return Breadth First Traversal of given graph.
-    vector<int> bfsOfGraph(int V, vector<int> adj[]) {
-        // Code here
-        vector<int> vis(V,0);
-        
-        vector<int> ans;
-        bfs(0,vis,adj,ans);
-        return ans;
+        return bfs;
     }
 };
-
-
 
 //{ Driver Code Starts.
 int main() {
