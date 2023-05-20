@@ -9,10 +9,11 @@ class Solution
     public:
     //Function to find minimum time required to rot all oranges. 
     int orangesRotting(vector<vector<int>>& grid) {
-        int n=grid.size();
         int m=grid[0].size();
+        int n=grid.size();
         int vis[n][m];
         int cntfresh=0;
+        
         queue<pair<pair<int,int>,int>> q;
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
@@ -21,33 +22,33 @@ class Solution
                     vis[i][j]=2;
                 }
                 if(grid[i][j]==1){
-                    cntfresh++;
                     vis[i][j]=1;
+                    cntfresh++;
                 }
             }
         }
-        int tm=0;
-        int drow[]={0,-1,0,1};
-        int dcol[]={-1,0,1,0};
+        int tmax=0;
         while(!q.empty()){
-            int r=q.front().first.first;
-            int c=q.front().first.second;
+            int row=q.front().first.first;
+            int col=q.front().first.second;
             int t=q.front().second;
-            tm=max(tm,t);
+            tmax=max(tmax,t);
             q.pop();
+            int drow[]={-1,0,1,0};
+            int dcol[]={0,1,0,-1};
             for(int i=0;i<4;i++){
-                int nrow=r+drow[i];
-                int ncol=c+dcol[i];
-                if(nrow>=0 and nrow<n and ncol>=0 and ncol<m &&
+                int nrow=row+drow[i];
+                int ncol=col+dcol[i];
+                if(nrow>=0 and nrow<n and ncol>=0 and ncol<m and 
                 vis[nrow][ncol]!=2 and grid[nrow][ncol]==1){
-                    q.push({{nrow,ncol},t+1});
                     vis[nrow][ncol]=2;
+                    q.push({{nrow,ncol},t+1});
                     cntfresh--;
                 }
             }
         }
         if(cntfresh!=0)return -1;
-        return tm;
+        return tmax;
     }
 };
 
