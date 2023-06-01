@@ -7,35 +7,46 @@ using namespace std;
 //User function Template for C++
 
 class Solution {
-  private:
-    void dfs(int node,vector<int> adjLs[], int vis[]){
-        vis[node]=1;
-        for(auto it: adjLs[node]){
-            if(!vis[it]){
-                dfs(it,adjLs,vis);
-            }
+  public:
+  int findPar(int node, vector<int>&par){
+        if(par[node]==node)return node;
+        return par[node]=findPar(par[node],par);
+    }
+    void unionByRank (int u, int v, vector<int> &rank, vector<int>&par){
+        int ult_u=findPar(u,par);
+        int ult_v=findPar(v,par);
+        if(ult_u==ult_v)return;
+        if(rank[ult_u]<rank[ult_v]){
+            par[ult_u]=ult_v;
+        }else if(rank[ult_v]<rank[ult_u]){
+            par[ult_v]=ult_u;
+        }else if(rank[ult_v]==rank[ult_u]){
+            par[ult_u]=ult_v;
+            rank[ult_v]++;
         }
     }
-  public:
     int numProvinces(vector<vector<int>> adj, int V) {
-        vector<int>adjLs[V];
-        for(int i=0;i<V;i++){
-            for(int j=0;j<V;j++){
-                if(adj[i][j]==1 && i!=j){
-                    adjLs[i].push_back(j);
-                    adjLs[j].push_back(i);
+        // code here
+        vector<int>par(V+1);
+        for(int i=1;i<=V;i++){
+            par[i]=i;
+        }
+        vector<int> rank(V+1,0);
+        
+        for (int i=0;i<adj.size();i++){
+            for(int j=0;j<adj[0].size();j++){
+                if(adj[i][j]==1){
+                    unionByRank(i,j,rank,par);
                 }
             }
         }
-        int vis[V]={0};
-        int cnt=0;
-        for(int i=0;i<V;i++){
-            if(!vis[i]){
-                cnt++;
-                dfs(i,adjLs,vis);
-            }
+        
+        int ans=0;
+        for (int i=0;i<V;i++){
+            if(findPar(i,par)==i)ans++;
         }
-        return cnt;
+        return ans;
+        
     }
 };
 
