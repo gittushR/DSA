@@ -4,8 +4,9 @@ public:
         
         if(i==0 && j==0)return dp[0][0]=grid[i][j];
         if(i<0 or j<0)return 1e9;
-        long long up=grid[i][j]+f(i-1,j,grid,dp);
         if(dp[i][j]!=-1)return dp[i][j];
+        long long up=grid[i][j]+f(i-1,j,grid,dp);
+        
         long long left=grid[i][j]+f(i,j-1,grid,dp);
         return dp[i][j]=min(up,left);
     }
