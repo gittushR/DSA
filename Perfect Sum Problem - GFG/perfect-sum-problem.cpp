@@ -4,6 +4,7 @@ using namespace std;
 
 // } Driver Code Ends
 
+
 class Solution{
 
 	public:
@@ -25,7 +26,7 @@ class Solution{
 	}
 	  
 };
-
+  
 //{ Driver Code Starts.
 int main() 
 {
