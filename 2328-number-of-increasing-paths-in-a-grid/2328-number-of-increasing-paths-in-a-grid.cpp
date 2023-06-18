@@ -22,7 +22,7 @@ public:
         
         int ans = 1;
         for(int i = 0; i<4; i++){
-            if(isvalid(x+dx[i],y+dy[i],grid) and grid[x][y]>grid[x+dx[i]][y+dy[i]]){
+            if(isvalid(x+dx[i],y+dy[i],grid) and grid[x][y]<grid[x+dx[i]][y+dy[i]]){
                 ans = (ans%mod+dfs(x+dx[i],y+dy[i],grid,dp)%mod)%mod;
             }
         }
