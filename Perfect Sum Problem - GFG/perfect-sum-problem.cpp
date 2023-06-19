@@ -3,30 +3,38 @@
 using namespace std;
 
 // } Driver Code Ends
-
-
 class Solution{
 
 	public:
 	int mod=1e9+7;
-	int perfectSum(int arr[], int n, int sum)
-	{
-        // Your code goes here
-        vector<vector<int>> dp(n,vector<int>(sum+1,-1));
-        return helper(dp,arr,n,sum,0);
-	}
-	int helper(vector<vector<int>> &dp,int arr[],int n, int sum,int ind){
-	    if(sum<0)return 0;
-	    if(ind==n){
-	        if(sum==0)return 1;
-	        return 0;
-	    }
-	    if(dp[ind][sum]!=-1)return dp[ind][sum];
-	    return dp[ind][sum]= (helper(dp,arr,n,sum-arr[ind],ind+1) % mod + helper(dp,arr,n,sum,ind+1)%mod)%mod;
+	int findWaysUtil(int ind, int target, int arr[], vector<vector<int>> &dp){
+        
+        if(ind == 0){
+            if(target==0 and arr[0]==0)return 2;
+            if(arr[0]==target or target==0)return 1;
+            return 0;
+        }
+    
+        if(dp[ind][target]!=-1)
+            return dp[ind][target];
+        
+        int notTaken = findWaysUtil(ind-1,target,arr,dp);
+    
+        int taken = 0;
+        if(arr[ind]<=target)
+            taken = findWaysUtil(ind-1,target-arr[ind],arr,dp);
+            
+        return dp[ind][target]= (notTaken%mod + taken%mod)%mod;
+    }
+    
+	int perfectSum(int arr[], int n, int k){
+        vector<vector<int>> dp(n,vector<int>(k+1,-1));
+        return findWaysUtil(n-1,k,arr,dp);
 	}
 	  
 };
-  
+
+
 //{ Driver Code Starts.
 int main() 
 {
