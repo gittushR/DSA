@@ -15,8 +15,7 @@ class Solution {
         {
             for(int j=0; j<sum+1; j++)
             {
-                if(arr[i-1] <= j)
-                    dp[i][j] = dp[i-1][j-arr[i-1]]%mod + dp[i-1][j]%mod;
+                if(arr[i-1] <= j) dp[i][j] = dp[i-1][j-arr[i-1]]%mod + dp[i-1][j]%mod;
                 else dp[i][j] = dp[i-1][j]%mod;
             }
         }    
