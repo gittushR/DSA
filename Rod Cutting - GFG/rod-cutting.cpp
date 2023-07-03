@@ -10,21 +10,27 @@ using namespace std;
 
 class Solution{
   public:
-    int cutRod(int price[], int n) {
-        //code here
-        int ans;
-        vector<int> maxprice(n);
-        maxprice[0] = price[0];
-        for(int i=1; i<n; ++i){
-            int maxi= INT_MIN;
-            for(int cut=1; cut<=i; ++cut){
-                maxprice[i] = max(price[i], maxprice[cut-1]+maxprice[i-cut]);
-                maxi = max(maxi, maxprice[i]);
-            }
-            maxprice[i] = maxi;
+    int fn(int total, int lengths[], int prices[],int index,vector<vector<int>> &dp){
+        if(index==0){
+            if(total>=lengths[0])return total*prices[0];
+            else return 0;
         }
-        ans = maxprice[n-1];
-        return ans;
+        if(dp[index][total]!=-1)return dp[index][total];
+        int notCut=fn(total,lengths,prices,index-1,dp);
+        int cut=-1e9;
+        if(total>=lengths[index]){
+            cut=prices[index]+fn(total-lengths[index],lengths,prices,index,dp);
+        }
+        return dp[index][total]=max(notCut, cut);
+    }
+    int cutRod(int prices[], int n) {
+        //code here
+        int lengths[n];
+        for(int i=1;i<=n;i++){
+            lengths[i-1]=i;
+        }
+        vector<vector<int>> dp(n,vector<int>(n+1,-1));
+        return fn(n,lengths,prices,n-1,dp);
     }
 };
 
