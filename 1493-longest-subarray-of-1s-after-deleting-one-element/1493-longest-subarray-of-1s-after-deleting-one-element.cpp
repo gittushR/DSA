@@ -23,7 +23,6 @@ class Solution
             }
             if(arrsum==0)return 0;
             sums.push_back(sum);
-           	// for(int i=0;i < sums.size();i++)cout<<sums[i]<<endl;
             int ans = INT_MIN;
             if (sums.size() == 1) return sums[0] - 1;
             else if (sums.size() == 2)
@@ -33,12 +32,6 @@ class Solution
             }
             else
             {
-                // int ind = 0;
-                // while (sums[ind] == 0)
-                // {
-                //     ind++;
-                // }
-                // cout<<"****"<<ind<<endl;
                 for (int i = 0; i < sums.size() - 2; i++)
                 {
                     int s = sums[i] + sums[i + 2];
