@@ -9,29 +9,29 @@ using namespace std;
 
 class Solution {
 public:
-
+    bool isPossible(int dist, vector<int> arr,int cows){
+        int cntCows=1,last=arr[0];
+        for(int i=1;i<arr.size();i++){
+            if(arr[i]-last>=dist){
+                cntCows++;
+                last=arr[i];
+            }
+        }
+        if(cntCows>=cows)return true;
+        else return false;
+    }
     int solve(int n, int k, vector<int> &stalls) {
     
         // Write your code here
-        //apply  binary search on min distance
-    sort(stalls.begin(),stalls.end());
-    int lo=0,hi=1e9+7,mid,ans;
-    while(lo<=hi){
-        mid=lo+(hi-lo)/2;
-        int cnt=1,prev=stalls[0];
-        for(int i=1;i<stalls.size();i++){
-            if((stalls[i]-prev)>=mid){
-                cnt++;
-                prev=stalls[i];
-            }
+        sort(stalls.begin(),stalls.end());
+        int low=1, high=stalls[n-1]-stalls[0];
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            if(isPossible(mid,stalls,k)){
+                low=mid+1;
+            }else high=mid-1;
         }
-        if(cnt>=k){
-            ans=mid;
-            lo=mid+1;
-        }
-        else hi=mid-1;
-    }
-    return ans;
+        return high;
     }
 };
 
