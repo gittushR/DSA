@@ -11,47 +11,40 @@ using namespace std;
 class Solution 
 {
     public:
-    
-    bool isPossible(int arr[], int n, int m, int mid){
-        int pageSum=0;
-        int studentNum=1;
-        
+    int fn(int pages,int arr[],int n){
+        int numbStudents=1;
+        long long pagesperStudent=0;
         for(int i=0;i<n;i++){
-            if(pageSum+arr[i]<=mid){
-                pageSum+=arr[i];
+            if(pagesperStudent+arr[i]<=pages){
+                pagesperStudent+=arr[i];
             }else{
-                studentNum++;
-                if(studentNum>m || arr[i]>mid)return false;
-                pageSum=arr[i];
+                numbStudents++;
+                pagesperStudent=arr[i];
             }
         }
-        return true;
+        return numbStudents;
     }
-    
-    
     //Function to find minimum number of pages.
-    int findPages(int A[], int N, int M) 
+    int findPages(int arr[], int n, int m) 
     {
         //code here
-        int sum=0;
-        for(int i=0;i<N;i++){
-            sum+=A[i];
+        if(m>n)return -1;
+        int maxi=-1e8,sum=0;
+        for(int i=0;i<n;i++){
+            maxi=max(maxi,arr[i]);
+            sum+=arr[i];
         }
-        int s=0,e=sum;
-        int mid=(s+e)/2;
-        int ans =-1;
-        if(N<M)return -1;
-        while(s<=e){
-            if (isPossible(A, N, M, mid)){
-                ans=mid;
-                e=mid-1;
+        int low=maxi,high=sum;
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            int students=fn(mid,arr,n);
+            if(students>m){
+                low=mid+1;
+            }else{
+                high=mid-1;
             }
-            else{
-                s=mid+1;
-            }
-            mid=(s+e)/2;
         }
-        return ans;
+        return low;
     }
 };
 
