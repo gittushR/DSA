@@ -7,23 +7,24 @@ using namespace std;
 class Solution{
 public:
 	int rowWithMax1s(vector<vector<int> > arr, int n, int m) {
-	    int i=0,j=m-1,count=0,ans;
-        while(j>=0 && i<n)
-        {
-         if(arr[i][j]==1){
-             if(count<m-j){
-                 count=m-j;
-                 ans=i;}
-             j--;
-         }
-         else
-                    i++;
-               }
-     if (count==0)
-         return -1;
-     return ans;
+	    // code here
+	    int i=0,j=m-1;
+	    int ans;
+	    int cnt=0;
+	    while(i<n and j>=0){
+	        if(arr[i][j]==1){
+	            if(cnt<m-j){
+	                cnt=m-j;
+	                ans=i;
+	            }
+	            j--;
+	        }else{
+	            i++;
+	        }
+	    }
+	    if(cnt==0)return -1;
+	    return ans;
 	}
-
 };
 
 //{ Driver Code Starts.
