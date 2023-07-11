@@ -6,14 +6,14 @@ public:
         
         for (int i = 0; i < n; i++) {
             int left = i;
-            int right = i;
+            int right = i; //for odd-length palindromes
             while (left >= 0 && right < n && s[left] == s[right]) {
                 count++;
                 left--;
                 right++;
             }
             left = i;
-            right = i + 1;
+            right = i + 1;//for even-length palindromes
             while (left >= 0 && right < n && s[left] == s[right]) {
                 count++;
                 left--;
