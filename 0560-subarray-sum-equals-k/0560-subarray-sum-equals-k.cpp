@@ -5,9 +5,7 @@ public:
         long long sum=0;int ans=0;
         for(int i=0;i<a.size();i++){
             sum+=a[i];
-            if(sum==k){
-                ans++;
-            }
+            if(sum==k)ans++;
             long long rem=sum-k;
             if(prevSum.find(rem)!=prevSum.end()){
                 ans+=prevSum[rem];
