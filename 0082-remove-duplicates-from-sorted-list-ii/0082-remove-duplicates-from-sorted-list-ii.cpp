@@ -12,7 +12,6 @@ class Solution {
 public:
     ListNode* deleteDuplicates(ListNode* head) {
         if(!head)return NULL;
-        if(!head->next) return head;
         map<int,int> mp;ListNode *t=head;
         while(t!=NULL){
             mp[t->val]++;
