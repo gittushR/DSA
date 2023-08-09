@@ -1,60 +1,65 @@
 //{ Driver Code Starts
-#include <bits/stdc++.h>
-
+#include<bits/stdc++.h>
 using namespace std;
+
 
 // } Driver Code Ends
 class Solution{
-public:
-    int maxIndexDiff(int arr[], int n) {
-        // code here
-        int nums[n];
-        for(int i =0;i<n;i++){
-            nums[i]=arr[i];
-        }
-        sort(nums,nums+n);
-        int k =n-1;
-        int maxi=0;
-        int s=0;
-        int e=n-1;
-        while(s<e){
-            int x = e-s;
-            if(arr[s]<=arr[e]){
-                maxi = max(x,maxi);
-                s++;
-                e = n-1;
-            }
-            else if(arr[s]==nums[k]){
-                k--;
-                s++;
-            }
-            else{
-                e--;
-            }
-        }
+    public:
         
-        return maxi;
+    // A[]: input array
+    // N: size of array
+    // Function to find the maximum index difference.
+    int maxIndexDiff(int A[], int N) {
+       int left[N];
+       int right[N];
+       left[0]=A[0];
+       right[N-1]=A[N-1];
+       for(int i=1;i<N;i++){
+           left[i]=min(left[i-1],A[i]);
+       }
+       for(int i=N-2;i>=0;i--){
+           right[i]=max(right[i+1],A[i]);
+       }
+       int maxi=INT_MIN;
+       int i=0,j=0;
+       
+       while(i<N&&j<N){
+           if(left[i]<=right[j]){
+               maxi=max(maxi,j-i);
+               j++;
+           }
+           else{
+           i++;
+           }
+       }
+       return maxi;
     }
-
 };
 
-
 //{ Driver Code Starts.
-
-int main() {
-    int t;
-    cin >> t;
-    while (t--) {
-        int n, i;
-        cin >> n;
-        int a[n];
-        for (i = 0; i < n; i++) {
-            cin >> a[i];
-        }
+  
+/* Driver program to test above functions */
+int main() 
+{
+    int T;
+    //testcases
+    cin>>T;
+    while(T--){
+        int num;
+        //size of array
+        cin>>num;
+        int arr[num];
+        
+        //inserting elements
+        for (int i = 0; i<num; i++)
+            cin>>arr[i];
         Solution ob;
-        auto ans = ob.maxIndexDiff(a, n);
-        cout << ans << "\n";
+        
+        //calling maxIndexDiff() function
+        cout<<ob.maxIndexDiff(arr, num)<<endl;    
+        
     }
     return 0;
-}
+} 
 // } Driver Code Ends
