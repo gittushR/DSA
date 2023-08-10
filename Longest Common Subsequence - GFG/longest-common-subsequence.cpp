@@ -9,17 +9,24 @@ using namespace std;
 class Solution
 {
     public:
-    int fn(int ind1, int ind2, string s1, string s2,vector<vector<int>>&dp){
-        if(ind1==0 or ind2==0)return 0;
-        if(dp[ind1][ind2]!=-1)return dp[ind1][ind2];
-        if(s1[ind1-1]==s2[ind2-1])return dp[ind1][ind2]=1+fn(ind1-1,ind2-1,s1,s2,dp);
-        return dp[ind1][ind2]=max(fn(ind1-1,ind2,s1,s2,dp),fn(ind1,ind2-1,s1,s2,dp));
+    int lc(string s1, int ind1, string s2, int ind2,vector<vector<int>> &dp){
+        if(ind1<0 || ind2<0)return 0;
+        if(dp[ind1][ind2]!=-1)return dp[ind1][ind2]; 
+        if(s1[ind1]==s2[ind2])return dp[ind1][ind2]=1+ lc(s1,ind1-1,s2,ind2-1,dp);
+        else return dp[ind1][ind2]=max(lc(s1,ind1-1,s2,ind2,dp), lc(s1,ind1,s2,ind2-1,dp));
     }
-    int lcs(int x, int y, string s1, string s2)
+    //Function to find the length of longest common subsequence in two strings.
+    int lcs(int n, int m, string s1, string s2)
     {
         // your code here
-        vector<vector<int>> dp(x+1,vector<int>(y+1,-1));
-        return fn(x,y,s1,s2,dp);
+        vector<vector<int>> dp(n+1,vector<int>(m+1,0));
+        for(int ind1=1;ind1<=n;ind1++){
+            for(int ind2=1;ind2<=m;ind2++){
+                if(s1[ind1-1]==s2[ind2-1]) dp[ind1][ind2]=1+ dp[ind1-1][ind2-1];
+                else dp[ind1][ind2]=max(dp[ind1-1][ind2], dp[ind1][ind2-1]);
+            }
+        }
+        return dp[n][m];
     }
 };
 
@@ -27,15 +34,15 @@ class Solution
 //{ Driver Code Starts.
 int main()
 {
-    int t,n,k,x,y;
+    int t,n,m;
     cin>>t;
     while(t--)
     {
-        cin>>x>>y;          // Take size of both the strings as input
+        cin>>n>>m;          // Take size of both the strings as input
         string s1,s2;
         cin>>s1>>s2;        // Take both the string as input
         Solution ob;
-        cout << ob.lcs(x, y, s1, s2) << endl;
+        cout << ob.lcs(n, m, s1, s2) << endl;
     }
     return 0;
 }
