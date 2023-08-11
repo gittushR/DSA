@@ -1,30 +1,23 @@
-class Solution
-{
-    public:
-        long long int func(int ind, vector<int> &coins, int sum, vector<vector < int long long>> &dp)
-        {
-            if (sum == 0)
-            {
-                return 1;
-            }
-            if (ind == 0)
-            {
-                if (sum % coins[0] == 0) return 1;
-                else return 0;
-            }
-            if (dp[ind][sum] != -1) return dp[ind][sum];
-            int long long dont = func(ind - 1, coins, sum, dp);
-            int long long take = 0;
-            if (coins[ind] <= sum)
-            {
-                take = func(ind, coins, sum - coins[ind], dp);
-            }
-            return dp[ind][sum] = dont + take;
+class Solution {
+private:
+    int helper(int ind,int sum,vector<int> coins,vector<vector<int>> &dp){
+        if(sum==0)return 1;
+        if(ind==0){
+            if(sum%coins[0]==0)return 1;
+            return 0;
         }
-    int change(int sum, vector<int> &coins)
-    {
-        int N = coins.size();
-        vector<vector < int long long>> dp(N, vector < int long long > (sum + 1, -1));
-        return func(N - 1, coins, sum, dp);
+        if(dp[ind][sum]!=-1)return dp[ind][sum]; 
+        int notTake = helper(ind-1,sum,coins,dp);
+        int take=0;
+        if(coins[ind]<=sum){
+            take=helper(ind,sum-coins[ind],coins,dp);
+        }
+        return dp[ind][sum]=take+notTake;
+    }
+public:
+    int change(int amount, vector<int>& coins) {
+        int n=coins.size();
+        vector<vector<int>> dp(n,vector<int>(amount+1,-1));
+        return helper(n-1,amount,coins,dp);
     }
 };
