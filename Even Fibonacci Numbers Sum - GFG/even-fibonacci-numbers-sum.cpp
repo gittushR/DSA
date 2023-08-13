@@ -11,14 +11,14 @@ public:
     long long evenFibSum(int N){
         // code here
         long long sum =0;
-        int dp[N+1];
-        dp[0]=1;
-        dp[1]=1;
+        int prev1=1,prev2=1,curr;
         for(int i=2; i<=N;i++)
         {
-            dp[i] = (dp[i-1]+ dp[i-2])%mod;
-            if(dp[i]>N)break;
-            if(dp[i]%2==0)sum = (sum+ dp[i]);
+            curr = (prev2+ prev1)%mod;
+            if(curr>N)break;
+            if(curr%2==0)sum = (sum+ curr);
+            prev1=prev2;
+            prev2=curr;
         }
        return sum;
     }
