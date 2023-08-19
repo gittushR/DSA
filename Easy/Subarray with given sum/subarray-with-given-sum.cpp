@@ -7,34 +7,25 @@ using namespace std;
 class Solution
 {
     public:
-    vector<int> subarraySum(vector<int>arr, int n, long long s)
-    {
-        int sum=0;
-        int a=0;
-        int i=0;
-        vector<int> arr1;
-        vector<int> arr2;
-        arr2.push_back(-1);
-        while(i<=n){
-        if (sum == s) {
-            arr1.push_back(a + 1);
-            arr1.push_back(i);
-            break;
-        }  if (sum > s) {
-            sum -= arr[a];
-            a++;
-            
-        } else {
-            sum += arr[i++];
+    //Function to find a continuous sub-array which adds up to a given number.
+    vector<int> subarraySum(vector<int>arr, int n, long long s){
+        long long v=0,j=0;
+        for(int i=0;i<n;i++){
+            v+=arr[i];
+            if(v==s)
+                return {j+1,i+1};
+            else if(v>s){
+                while(j<i && v>s){
+                    v-=arr[j];
+                    j++;
+                }
+                if(v==s)
+                    return {j+1,i+1};
+            }
         }
-    }
-    if(sum==s and sum!=0)
-        return arr1;
-        else
-        return arr2;
+        return {-1};
     }
 };
-
 
 //{ Driver Code Starts.
 
