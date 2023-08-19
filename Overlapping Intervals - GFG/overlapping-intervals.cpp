@@ -7,18 +7,18 @@ class Solution {
 public:
     vector<vector<int>> overlappedInterval(vector<vector<int>>& intervals) {
          // Code here
-         if(intervals.size()<=1)return intervals;
-        sort(intervals.begin(),intervals.end());
         vector<vector<int>> ans;
+        sort(intervals.begin(),intervals.end());
+        int n=intervals.size();
         ans.push_back(intervals[0]);
-        for(int i=0;i<intervals.size();i++){
+        for(int i=0;i<n;i++){
             if(ans.back()[1]>=intervals[i][0]){
                 ans.back()[1]=max(ans.back()[1],intervals[i][1]);
             }else{
                 ans.push_back(intervals[i]);
             }
         }
-        return ans;
+        return ans; 
     }
 };
 
