@@ -10,19 +10,15 @@ public:
 	    int n = grid.size(), m = grid[0].size(), l = word.size();
 	    vector<int> dx = {-1, 0, 1, 0, -1, 1, 1, -1}, dy = {0, 1, 0, -1, -1, 1, -1, 1};
 	    set<vector<int>> st;
-	    
 	    for(int i=0; i<n; i++) {
 	        for(int j=0; j<m; j++) {
-	            
 	            if(word[0] != grid[i][j]) {
 	                continue;
 	            }
-	            
 	            for(int k=0; k<8; k++) {
 	                int p = 1;
 	                int x = i + dx[k], y = j + dy[k];
 	                while(p < l && x >= 0 && x < n && y >= 0 && y < m && word[p] == grid[x][y]) {
-	                   
 	                    x += dx[k];
 	                    y += dy[k];
 	                    p++;
@@ -30,7 +26,6 @@ public:
 	                if(p == l) {
 	                    st.insert({i, j});
 	                }
-	                
 	            }
 	        }
 	    }
