@@ -66,6 +66,7 @@ struct Node {
 };*/
 
 //Function to remove duplicates from sorted linked list.
+//Function to remove duplicates from sorted linked list.
 Node *removeDuplicates(Node *head)
 {
  // your code goes here
