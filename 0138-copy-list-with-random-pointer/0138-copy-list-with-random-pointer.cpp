@@ -19,20 +19,17 @@ public:
     Node* copyRandomList(Node* head) {
         if (!head) return nullptr;
         unordered_map<Node*, Node*> copiedList;
-        
         Node* curr = head;
         while (curr) {
             copiedList[curr] = new Node(curr->val);
             curr = curr->next;
         }
-        
         curr = head;
         while (curr) {
             copiedList[curr]->next = copiedList[curr->next];
             copiedList[curr]->random = copiedList[curr->random];
             curr = curr->next;
         }
-        
         return copiedList[head];
     }
 };
