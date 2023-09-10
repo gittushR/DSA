@@ -1,10 +1,8 @@
 class Solution {
 public:
     vector<string>result;
-    void helper(int open,int close,int n,string current)
-    {
-        if(current.length()==n*2)
-        {
+    void helper(int open,int close,int n,string current){
+        if(current.length()==n*2){
             result.push_back(current);
             return;
         }
