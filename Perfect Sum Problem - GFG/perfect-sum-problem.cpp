@@ -3,12 +3,11 @@
 using namespace std;
 
 // } Driver Code Ends
-class Solution{
 
+class Solution{
 	public:
 	int mod=1e9+7;
 	int findWaysUtil(int ind, int target, int arr[], vector<vector<int>> &dp){
-        
         if(ind == 0){
             if(target==0 and arr[0]==0)return 2;
             if(arr[0]==target or target==0)return 1;
@@ -19,21 +18,17 @@ class Solution{
             return dp[ind][target];
         
         int notTaken = findWaysUtil(ind-1,target,arr,dp);
-    
         int taken = 0;
         if(arr[ind]<=target)
             taken = findWaysUtil(ind-1,target-arr[ind],arr,dp);
-            
         return dp[ind][target]= (notTaken%mod + taken%mod)%mod;
     }
-    
 	int perfectSum(int arr[], int n, int k){
         vector<vector<int>> dp(n,vector<int>(k+1,-1));
         return findWaysUtil(n-1,k,arr,dp);
 	}
 	  
 };
-
 
 //{ Driver Code Starts.
 int main() 
