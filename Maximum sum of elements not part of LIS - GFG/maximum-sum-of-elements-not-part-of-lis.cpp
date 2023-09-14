@@ -14,7 +14,8 @@ class Solution {
         for (int i = 0; i < n; i++) {
             totalSum += arr[i];
         }
-        int dp[2][n];
+        int dp[2][n];//dp[0]for storing the length of longest Increasing subsequence at that ind and
+        //dp[1] for storing the min sum of subsequence upto that particular ind
         for (int i = 0; i < n; i++) {
             dp[0][i] = 1;
             dp[1][i] = arr[i];
@@ -39,7 +40,6 @@ class Solution {
         }
         int maxm = 0;
         int subtractSum = 0;
-     
         // Find the sum that need to be subtracted from total sum
         //among all the LIS and their sums, we find that particular LIS with the minimum sum
         for (int i = 0; i < n; i++) {
