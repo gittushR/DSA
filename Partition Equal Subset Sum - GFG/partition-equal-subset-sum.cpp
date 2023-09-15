@@ -9,47 +9,28 @@ using namespace std;
 
 class Solution{
 public:
-    bool f(int ind, int target,int nums[], vector<vector<int>>&dp){
-        if(ind==0)return (target==nums[0]);
-        if(target==0)return true;
-        if(dp[ind][target]!=-1)return dp[ind][target];
-        bool notTake=f(ind-1,target,nums,dp);
-        bool take=false;
-        if(target>=nums[ind])take=f(ind-1,target-nums[ind],nums,dp);
-        return dp[ind][target]=(take or notTake);
+    bool helper(int ind, int target, int arr[],vector<vector<int>>&memo){
+        if(target==0)return 1;
+        if(ind==0){
+            if(arr[0]==target)return 1;
+            return 0;
+        }
+        if(memo[ind][target]!=-1)return memo[ind][target];
+        int notTake=helper(ind-1,target,arr,memo);
+        int take=0;
+        if(target>arr[ind])take=helper(ind-1,target-arr[ind],arr,memo);
+        return memo[ind][target]=take || notTake;
     }
-    
     int equalPartition(int n, int arr[])
     {
         // code here
         int sum=0;
         for(int i=0;i<n;i++)sum+=arr[i];
-        if(sum%2!=0)return false;
-        vector<vector<int>>dp(n,vector<int>((sum/2)+1,-1));
-        return f(n-1,sum/2,arr,dp);
+        if(sum % 2!=0)return false;
+        vector<vector<int>> memo(n,vector<int>((sum/2)+1,-1));
+        return helper(n-1,sum/2,arr,memo);
     }
 };
-/*
-class Solution {
-public:
-    bool f(int ind, int target,vector<int>& nums, vector<vector<int>>&dp){
-        if(ind==0)return (target==nums[0]);
-        if(target==0)return true;
-        if(dp[ind][target]!=-1)return dp[ind][target];
-        bool notTake=f(ind-1,target,nums,dp);
-        bool take=false;
-        if(target>=nums[ind])take=f(ind-1,target-nums[ind],nums,dp);
-        return dp[ind][target]=(take or notTake);
-    }
-    bool canPartition(vector<int>& nums) {
-        int n=nums.size();
-        int sum=0;
-        for(auto it:nums)sum+=it;
-        if(sum%2!=0)return false;
-        vector<vector<int>>dp(n,vector<int>((sum/2)+1,-1));
-        return f(n-1,sum/2,nums,dp);
-    }
-};*/
 
 //{ Driver Code Starts.
 
