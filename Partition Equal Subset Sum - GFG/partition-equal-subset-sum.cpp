@@ -27,8 +27,18 @@ public:
         int sum=0;
         for(int i=0;i<n;i++)sum+=arr[i];
         if(sum % 2!=0)return false;
-        vector<vector<int>> memo(n,vector<int>((sum/2)+1,-1));
-        return helper(n-1,sum/2,arr,memo);
+        vector<vector<int>> memo(n,vector<int>((sum/2)+1,0));
+        for(int i=0;i<n;i++)memo[i][0]=1;
+        if(sum/2>=arr[0])memo[0][arr[0]]=1;
+        for(int ind=1;ind<=n-1;ind++){
+            for(int target=1;target<=sum/2;target++){
+                int notTake=memo[ind-1][target];
+                int take=0;
+                if(target>arr[ind])take=memo[ind-1][target-arr[ind]];
+                memo[ind][target]=take || notTake;
+            }
+        }
+        return memo[n-1][sum/2];
     }
 };
 
