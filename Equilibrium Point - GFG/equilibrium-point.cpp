@@ -10,29 +10,21 @@ class Solution{
     // a: input array
     // n: size of array
     int equilibriumPoint(long long a[], int n) {
+    
         // Your code here
-        int i;
-        int prevsum=0;
-        int remsum=0;
-        int Ts=0;
-        for(i=0;i<n;i++)
-        {
-            Ts=Ts+a[i];
+        if(n==1)return 1;
+        long long sum=0;
+        for(int i=0;i<n;i++){
+            sum+=a[i];
         }
-        
-        for(i=0;i<n;i++)
-        {
-            remsum=Ts-a[i]-prevsum;
-            
-            if (prevsum==remsum)
-            {
-                return (i+1);// return i+1 th iteration if there is one equilibrium point;
-            }
-            prevsum=prevsum+a[i];
-            
+        long long currSum=0;
+        for(int i=1;i<n-1;i++){
+            currSum+=a[i-1];
+            if(currSum==sum-a[i]-currSum)return i+1;
         }
-        return -1;// if there is no equillibrium point;
+        return -1;
     }
+
 };
 
 //{ Driver Code Starts.
