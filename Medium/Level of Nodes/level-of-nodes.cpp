@@ -12,20 +12,19 @@ class Solution
 	{
 	    // code here
 	    queue<pair<int,int>> q;
-	    q.push({0,0});
-	    vector<int>vis(V,0);
+	    vector<int> vis(V,0);
 	    vis[0]=1;
+	    q.push({0,0});
 	    while(!q.empty()){
-	        int level=q.front().first;
-	        int node=q.front().second;
+	        auto it=q.front();
 	        q.pop();
-	        
-	        if(node==X)return level;
-	        
-	        for(auto it:adj[node]){
-	            if(!vis[it]){
-	                q.push({level+1,it});
-	                vis[it]=1;
+	        int node=it.first;
+	        int lvl=it.second;
+	        if(node==X)return lvl;
+	        for(auto a:adj[node]){
+	            if(!vis[a]){
+	                q.push({a,lvl+1});
+	                vis[a]=1;
 	            }
 	        }
 	    }
