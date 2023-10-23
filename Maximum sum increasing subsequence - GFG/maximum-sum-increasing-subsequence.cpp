@@ -3,6 +3,7 @@
 using namespace std;
 
 // } Driver Code Ends
+
 class Solution{
 	public:
 	int maxSumIS(int arr[], int n)  
@@ -24,6 +25,7 @@ class Solution{
 	    return maxSum;
 	}  
 };
+
 
 //{ Driver Code Starts.
 int main() 
