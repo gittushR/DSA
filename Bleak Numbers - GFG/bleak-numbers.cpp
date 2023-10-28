@@ -20,7 +20,8 @@ public:
 	    /* n-30 because basically here we are checking if if any number x+csb(x)==n. 
 	    now number od set bits in a number is equal to log of that number. 
 	    so maximum numner of set bits that can occur in this question is log(1e9)~=29.8.x+[1 to 30]=n. 
-	    Therefore x has a range of [n-30 to n-1]*/
+	    Therefore x has a range of [n-30 to n-1]. hence we check only for that range.
+	    Time Complexity => logn*logn */
 	    for(int i=n-30;i<=n-1;i++){
 	        if(i+countSetBits(i)==n)return 0;
 	    }
