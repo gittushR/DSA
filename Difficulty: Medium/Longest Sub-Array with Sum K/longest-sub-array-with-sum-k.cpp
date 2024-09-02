@@ -6,25 +6,27 @@ using namespace std;
 // } Driver Code Ends
 class Solution{
     public:
-    int lenOfLongSubarr(int arr[],  int n, int k) 
+    int lenOfLongSubarr(int arr[],  int N, int K) 
     { 
         // Complete the function
-        int maxLength=0;
-        int sum=0;
         unordered_map<int,int> mp;
-        for(int i=0;i<n;i++){
+        int sum=0;
+        int ans=0;
+        int curr=0;
+        for(int i=0;i<N;i++){
             sum+=arr[i];
-            if(sum==k){
-                maxLength=max(maxLength,i+1);
+            if(sum==K){
+                curr=i+1;
+                ans=max(ans,curr);
             }
-            int rem = sum-k;
+            int rem=sum-K;
             if(mp.find(rem)!=mp.end()){
-                int l = i-mp[rem];
-                maxLength = max(maxLength,l);
+                curr=i-mp[rem];
+                ans=max(ans,curr);
             }
             if(mp.find(sum)==mp.end())mp[sum]=i;
         }
-        return maxLength;
+        return ans;
     } 
 
 };
