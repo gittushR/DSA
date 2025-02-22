@@ -5,28 +5,26 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-  
-    void bfs(int row, int col,vector<vector<char>>grid,vector<vector<int>>&vis){
-        int n=grid.size();
-        int m=grid[0].size();
-        vis[row][col]=1;
-        queue<pair<int,int>>q;
-        q.push({row,col});
+    void bfs(vector<vector<char>> &grid, vector<vector<int>> &vis, int rowInd, int colInd){
+        vis[rowInd][colInd]=1;
+        queue<pair<int,int>> q;
+        q.push({rowInd,colInd});
+        int n=grid.size(),m=grid[0].size();
         
         while(!q.empty()){
-            int row=q.front().first;
-            int col=q.front().second;
+            auto it = q.front();
             q.pop();
-            
-            for(int delrow=-1;delrow<=1;delrow++){
-                for(int delcol=-1;delcol<=1;delcol++){
-                    int nrow=row+delrow;
-                    int ncol=col+delcol;
-                    if(nrow>=0 && nrow<n && ncol>=0 && ncol<m &&
-                    !vis[nrow][ncol] && grid[nrow][ncol]=='1'){
-                        vis[nrow][ncol]=1;
-                        q.push({nrow,ncol});
-                    }
+            int row=it.first;
+            int col=it.second;
+            int dRow[8]={-1,-1,-1,0,1,1,1,0};
+            int dCol[8]={-1,0,1,1,1,0,-1,-1};
+            for(int i=0;i<8;i++){
+                int nrow = row + dRow[i];
+                int ncol = col + dCol[i];
+                if(nrow>=0 and ncol>=0 and nrow<n and ncol<m 
+                and !vis[nrow][ncol] and grid[nrow][ncol]=='1'){
+                    vis[nrow][ncol]=1;
+                    q.push({nrow,ncol});
                 }
             }
         }
@@ -36,22 +34,19 @@ class Solution {
         // Code here
         int n=grid.size();
         int m=grid[0].size();
-        vector<vector<int>>vis(n,vector<int>(m,0));
-        int ans=0;
+        vector<vector<int>> vis(n,vector<int>(m,0));
+        int count=0;
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
-                if(!vis[i][j] && grid[i][j]=='1'){
-                    
-                    bfs(i,j,grid,vis);
-                    ans++;
-                    
+                if(vis[i][j]==0 and grid[i][j]=='1'){
+                    bfs(grid,vis,i,j);
+                    count++;
                 }
             }
         }
-        return ans;
+        return count;
     }
 };
-
 
 //{ Driver Code Starts.
 int main() {
@@ -69,7 +64,9 @@ int main() {
         Solution obj;
         int ans = obj.numIslands(grid);
         cout << ans << '\n';
-    }
+    
+cout << "~" << "\n";
+}
     return 0;
 }
 // } Driver Code Ends
